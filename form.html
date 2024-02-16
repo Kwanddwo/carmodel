@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Form</title>
+</head>
+<body>
+    <h2>API Form</h2>
+    <form id="apiForm">
+        <button type="button" onclick="submitForm()">Submit</button>
+        <br>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+    let inputElements = {};
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const apiForm = document.getElementById('apiForm');
+
+        const inputs = [
+            "Manufacturer",
+            "Body Style",
+            "Fuel Efficiency",
+            "Engine Volume",
+            "Powertrain",
+            "License Status",
+            "Manufacture Year",
+            "Variant",
+            "Location",
+            "Distance Covered",
+            "Gearbox",
+            "Owner_Type"
+        ];
+
+        for (input of inputs) {
+            const inputElement = document.createElement('input');
+            inputElement.type = 'text';
+            inputElement.id = input;
+            inputElement.name = input;
+            inputElement.required = true;
+
+            const inputLabel = document.createElement('label');
+            inputLabel.for = input;
+            inputLabel.innerText = input + ' :';
+
+            apiForm.appendChild(inputLabel);
+            apiForm.appendChild(inputElement);
+            apiForm.appendChild(document.createElement('br'));
+
+            inputElements[input] = inputElement;
+        }
+    });
+
+    function submitForm() {
+        const body = {};
+        for (const input in inputElements) {
+            body[input] = inputElements[input].value;
+        }
+        body['index'] = 1;
+
+        fetch('http://127.0.0.1:8000/api/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('result').innerText = 'Result: ' + data.prediction;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+curl -X POST -H "Content-Type: application/json" -d '{
+  "Manufacturer": "Mitsubishi",
+  "Body Style": "sedan",
+  "Fuel Efficiency": 42,
+  "Engine Volume": 2.9,
+  "Powertrain": "Diesel",
+  "License Status": "yes",
+  "Manufacture Year": 1900,
+  "Variant": "Sprinter 212",
+  "Location": "rabat",
+  "Distance Covered": 41000,
+  "Gearbox": "Manual",
+  "Owner_Type": "First",
+  "index": 1
+}' http://127.0.0.1:8000/api/predict
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "Manufacturer": "Mercedes-Benz",
+  "Body Style": "van",
+  "Fuel Efficiency": 427,
+  "Engine Volume": 2.9,
+  "Powertrain": "Diesel",
+  "License Status": "yes",
+  "Manufacture Year": 1999,
+  "Variant": "Sprinter 212",
+  "Location": "rabat",
+  "Distance Covered": 41000,
+  "Gearbox": "Manual",
+  "Owner_Type": "First",
+  "index": 1
+}' http://localhost:5000/predict
